@@ -12,6 +12,6 @@ class TodoListController extends Controller
         $todo_lists = TodoList::all();
 
         // view('フォルダ名.ファイル名')
-        return view('todo_list.index', ['todo_lists', $todo_lists]);
+        return view('todo_list.index', ['todo_lists' => $todo_lists]);
     }
 }
