@@ -45,7 +45,7 @@
                                   戻る
                               </a>
                               <button type="submit"
-                                  class="p-4 bg-slate-800 text-white w-full max-w-xs hover:bg-slate-900 transition-colors">
+                                  class="p-4 bg-sky-800 text-white w-full max-w-xs hover:bg-sky-900 transition-colors">
                                   編集する
                               </button>
                           </div>
