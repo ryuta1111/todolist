@@ -15,7 +15,8 @@ class TaskController extends Controller
     {
         //モデル名::all() モデルのレコードを全て取得
         //変数$tasksに入れ、viewファイルに渡す
-        $tasks = Task::all();
+        // $tasks = Task::all(); 全て表示
+        $tasks = Task::where('status' , false)->get();
         return view('tasks.index' , compact('tasks'));
     }
 
@@ -87,7 +88,10 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->status);　確認用
+
+        //「編集する」ボタンを押した時
+        if($request->status === null) {
         $rules = [
             'task_name' => 'required|max:100',
           ];
@@ -105,9 +109,20 @@ class TaskController extends Controller
         
           //データベースに保存
           $task->save();
-        
-          //リダイレクト
-          return redirect('/tasks');
+        }else{
+        //「完了」ボタンを押した時
+
+        //該当のタスクを検索
+        $task = Task::find($id);
+
+        //モデル->カラム名 = 値 で、データを割り当てる
+        $task->status = true; //true:完了、false:未完了
+
+        //データベースに保存
+        $task->save();
+        }
+        //リダイレクト
+        return redirect('/tasks');
     }
 
     /**
@@ -116,5 +131,8 @@ class TaskController extends Controller
     public function destroy(string $id)
     {
         //
+        Task::find($id)->delete();
+
+        return redirect('/tasks');
     }
 }
